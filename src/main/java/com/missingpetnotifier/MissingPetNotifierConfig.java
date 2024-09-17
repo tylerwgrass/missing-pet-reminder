@@ -12,7 +12,7 @@ public interface MissingPetNotifierConfig extends Config
 		name = "Time Missing Delay",
 		description = "The number of ticks your pet is missing before alerting"
 	)
-	default Integer timeMissingDelay()
+	default int timeMissingDelay()
 	{
 		return 5;
 	}
