@@ -9,22 +9,6 @@ public class PetHandler
 {
 	private static final ImmutableMap<String, String> itemToNpcMap = ImmutableMap.<String, String>builder()
 		.put("Pet snakeling", "Snakeling")
-		.put("Abyssal orphan", "Abyssal orphan")
-		.put("Baron", "Baron")
-		.put("Butch", "Butch")
-		.put("Callisto cub", "Callisto cub")
-		.put("Hellpuppy", "Hellpuppy")
-		.put("Ikkle hydra", "Ikkle Hydra")
-		.put("Jal-nib-rek", "Jal-Nib-Rek")
-		.put("Kalphite princess", "Kalphite Princess")
-		.put("Lil' zik", "Lil' Zik")
-		.put("Lil'viathan", "Lil'viathan")
-		.put("Little nightmare", "Little Nightmare")
-		.put("Muphin", "Muphin")
-		.put("Nexling", "Nexling")
-		.put("Nid", "Nid")
-		.put("Noon", "Noon")
-		.put("Olmlet", "Olmlet")
 		.put("Pet chaos elemental", "Chaos Elemental Jr.")
 		.put("Pet dagannoth prime", "Dagannoth Prime Jr.")
 		.put("Pet dagannoth rex", "Dagannoth Rex Jr.")
@@ -36,38 +20,7 @@ public class PetHandler
 		.put("Pet kree'arra", "Kree'arra Jr.")
 		.put("Pet smoke devil", "Smoke Devil")
 		.put("Pet zilyana", "Zilyana Jr.")
-		.put("Phoenix", "Phoenix")
-		.put("Prince black dragon", "Prince Black Dragon")
-		.put("Scorpia's offspring", "Scorpia's offspring")
-		.put("Scurry", "Scurry")
-		.put("Skotos", "Skotos")
-		.put("Smolcano", "Smolcano")
-		.put("Smol heredit", "Smol Heredit")
-		.put("Sraracha", "Sraracha")
-		.put("Tiny tempor", "Tiny Tempor")
-		.put("Tumeken's guardian", "Tumeken's Guardian")
-		.put("Tzrek-jad", "TzRek-Jad")
-		.put("Venenatis spiderling", "Venenatis spiderling")
-		.put("Vet'ion jr.", "Vet'ion Jr.")
-		.put("Vorki", "Vorki")
-		.put("Wisp", "Wisp")
-		.put("Youngllef", "Youngllef")
-		.put("Baby chinchompa", "Baby Chinchompa")
-		.put("Beaver", "Beaver")
-		.put("Rock golem", "Rock Golem")
-		.put("Tangleroot", "Tangleroot")
-		.put("Abyssal protector", "Abyssal protector")
-		.put("Bloodhound", "Bloodhound")
-		.put("Broav", "Broav")
-		.put("Chompy chick", "Chompy chick")
-		.put("Herbi", "Herbi")
 		.put("Pet penance queen", "Penance Pet")
-		.put("Quetzin", "Quetzin")
-		.put("Giant squirrel", "Giant Squirrel")
-		.put("Heron", "Heron")
-		.put("Rift guardian", "Rift Guardian")
-		.put("Rocky", "Rocky")
-		.put("Lil' creator", "Lil' Creator")
 		.build();
 
 	private static final ImmutableSet<String> baseItems = itemToNpcMap.keySet();
@@ -181,7 +134,7 @@ public class PetHandler
 	{
 		final String dedupedNpcName = dedupeNpc(followerName);
 		final String dedupedItemName = dedupeItem(itemName);
-		return itemToNpcMap.containsKey(dedupedItemName) &&
-			itemToNpcMap.get(dedupedItemName).equals(dedupedNpcName);
+		return dedupedItemName.equalsIgnoreCase(dedupedNpcName) ||
+			(itemToNpcMap.containsKey(dedupedItemName) && itemToNpcMap.get(dedupedItemName).equals(dedupedNpcName));
 	}
 }

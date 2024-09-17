@@ -15,7 +15,6 @@ import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -32,8 +31,6 @@ public class MissingPetNotifierPlugin extends Plugin
 	private MissingPetNotifierConfig config;
 	@Inject
 	private OverlayManager overlayManager;
-	@Inject
-	private ItemManager itemManager;
 
 	private MissingPetNotifierOverlay overlay = new MissingPetNotifierOverlay();
 	@Getter
