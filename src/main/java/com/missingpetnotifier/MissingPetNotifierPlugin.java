@@ -32,7 +32,7 @@ public class MissingPetNotifierPlugin extends Plugin
 	@Inject
 	private OverlayManager overlayManager;
 
-	private MissingPetNotifierOverlay overlay = new MissingPetNotifierOverlay();
+	private MissingPetNotifierOverlay overlay;
 	@Getter
 	private boolean shouldSeePet = false;
 	@Getter
@@ -40,10 +40,21 @@ public class MissingPetNotifierPlugin extends Plugin
 	private String followerName;
 
 	@Override
+	protected  void startUp()
+	{
+		overlay = new MissingPetNotifierOverlay();
+		PetHandler.init();
+	}
+
+	@Override
 	protected void shutDown()
 	{
 		overlayManager.remove(overlay);
 		overlay = null;
+		followerName = null;
+		shouldSeePet = false;
+		numMissingTicks = 0;
+		PetHandler.reset();
 	}
 
 	@Subscribe
