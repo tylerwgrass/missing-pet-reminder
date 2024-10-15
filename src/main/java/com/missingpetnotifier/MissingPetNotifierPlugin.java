@@ -31,8 +31,12 @@ public class MissingPetNotifierPlugin extends Plugin
 	private MissingPetNotifierConfig config;
 	@Inject
 	private OverlayManager overlayManager;
+	@Inject
+	private ConfigManager configManager;
 
 	private MissingPetNotifierOverlay overlay;
+
+	private static final String CONFIG_GROUP = "missingpetnotifier";
 	@Getter
 	private boolean shouldSeePet = false;
 	@Getter
@@ -43,6 +47,8 @@ public class MissingPetNotifierPlugin extends Plugin
 	protected  void startUp()
 	{
 		overlay = new MissingPetNotifierOverlay();
+		followerName = configManager.getConfiguration(CONFIG_GROUP, "last_pet");
+		shouldSeePet = followerName != null;
 		PetHandler.init();
 	}
 
@@ -51,6 +57,7 @@ public class MissingPetNotifierPlugin extends Plugin
 	{
 		overlayManager.remove(overlay);
 		overlay = null;
+		configManager.setConfiguration(CONFIG_GROUP, "last_pet", followerName);
 		followerName = null;
 		shouldSeePet = false;
 		numMissingTicks = 0;
@@ -88,6 +95,10 @@ public class MissingPetNotifierPlugin extends Plugin
 		final boolean didPickUpPet = Arrays.stream(inventoryItems)
 			.anyMatch(item -> itemMatchesPet(client.getItemDefinition(item.getId()).getName(), followerName));
 		shouldSeePet = !didPickUpPet;
+		if (didPickUpPet)
+		{
+			followerName = null;
+		}
 	}
 
 	@Subscribe
@@ -106,6 +117,7 @@ public class MissingPetNotifierPlugin extends Plugin
 		}
 		else
 		{
+			followerName = client.getFollower() == null ? null : client.getFollower().getName();
 			numMissingTicks = 0;
 			overlayManager.remove(overlay);
 		}

@@ -2,10 +2,17 @@ package com.missingpetnotifier;
 
 import static com.missingpetnotifier.PetHandler.itemMatchesPet;
 import static org.junit.Assert.assertTrue;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PetHandlerTest
 {
+	@Before
+	public void init()
+	{
+		PetHandler.init();
+	}
+
 	@Test
 	public void GIVEN_matchingItemAndNpcNames_WHEN_itemMatchesPet_THEN_returnsTrue()
 	{
