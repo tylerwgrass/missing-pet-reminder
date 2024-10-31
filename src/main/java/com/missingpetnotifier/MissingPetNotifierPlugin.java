@@ -6,10 +6,12 @@ import java.util.Arrays;
 import javax.inject.Inject;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.events.ActorDeath;
+import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.NpcSpawned;
@@ -62,6 +64,17 @@ public class MissingPetNotifierPlugin extends Plugin
 		shouldSeePet = false;
 		numMissingTicks = 0;
 		PetHandler.reset();
+	}
+
+	@Subscribe
+	public void onChatMessage(ChatMessage event)
+	{
+		String message = event.getMessage();
+		if (ChatMessageType.GAMEMESSAGE.equals(event.getType()) && message.contains("You do not have a follower."))
+		{
+			followerName = null;
+			shouldSeePet = false;
+		}
 	}
 
 	@Subscribe
